@@ -1,1 +1,28 @@
+% Step 1: Select file
+[file, path] = uigetfile({'*.jpg;*png;*.bmp','Select an Image'});
+if isequal(file,0);
+disp('Cancelled');
+return;
+end
 
+% Step 2: Load Image
+try
+img = imread(fullfile(path, file));
+catch err
+errordlg(err.message);
+return;
+end
+
+% Step 3: Convert to grayscale
+gray = rgb2gray(img);
+
+% Step 4: Display both
+figure(1);
+subplot(1,2,1); imshow(img); title(['RGB: ' file]);
+subplot(1,2,2); imshow(gray); title('Grayscale');
+whos;
+figure(2);
+img = img * 2;
+gray = gray *2;
+subplot(1,2,1); imshow(img); title(['RGB: ' file]);
+subplot(1,2,2); imshow(gray); title('Grayscale');
