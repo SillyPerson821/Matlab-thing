@@ -31,7 +31,7 @@ for a = 1:3 % Each rgb value must be changed individually
 finalpixel = zeros(kernelsize, kernelsize);
 for j = 1:size(img, 2)
     for i = 1:size(img, 1)
-        kernelmult = zeros(kernelsize, kernelsize);
+        kernelmult = zeros(kernelsize, kernelsize); % This whole thing basically makes a chunk surrounding a pixel, making it the same size as the kernel
         for k = 1:kernelsize
             for l = 1:kernelsize
                 offseth = (k-ceil(kernelsize/2))+i;
@@ -43,8 +43,7 @@ for j = 1:size(img, 2)
                 end
             end
         end
-        % This basically makes a chunk surrounding a pixel, 
-        % making it the same size as the kernel
+% Then, you have to multiply the kernel and the image chunk:
         for k = 1:kernelsize
             for l = 1:kernelsize
                 finalpixel(k,l) = kernelmult(k,l)*kernel(k,l);
